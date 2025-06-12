@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::get('/forecast', [\App\Http\Controllers\WeatherController::class, 'index']);
 
+Route::get("/forecast/{city}", [\App\Http\Controllers\ForecastController::class, "index"]);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
