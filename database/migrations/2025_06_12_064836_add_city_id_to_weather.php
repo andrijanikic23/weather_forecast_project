@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('weather', function (Blueprint $table) {
-            $table->dropColumn("city");
 
             $table->unsignedBigInteger("city_id");
 
