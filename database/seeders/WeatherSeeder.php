@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CitiesModel;
 use App\Models\WeatherModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,17 +14,12 @@ class WeatherSeeder extends Seeder
      */
     public function run(): void
     {
-        $forecast = [
-            "Belgrade" => 22,
-            "Novi Sad" => 23,
-            "Sarajevo" => 24,
-            "Zagreb" => 26
-        ];
 
-        foreach($forecast as $city => $temperature)
+        $cities = CitiesModel::all();
+
+        foreach($cities as $city)
         {
-
-            $userWeather = WeatherModel::where(['city' => $city])->first();
+            $userWeather = WeatherModel::where(['city_id' => $city->id])->first();
             if($userWeather !== null)
             {
                 $this->command->getOutput()->error("This city already exists!");
@@ -31,9 +27,11 @@ class WeatherSeeder extends Seeder
             }
 
             WeatherModel::create([
-                'city' => $city,
-                'temperature' => $temperature
+                'city_id' => $city->id,
+                'temperature' => rand(15,30)
             ]);
         }
+
+
     }
 }
