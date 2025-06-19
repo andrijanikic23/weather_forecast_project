@@ -15,13 +15,31 @@ Route::get('/contact', function(){
     return view('contact');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view("/", "welcome");
+Route::get("/search", [\App\Http\Controllers\ForecastsController::class, "search"])
+    ->name("search");
+
+Route::get("search/forecast/{city:name}", [\App\Http\Controllers\ForecastsController::class, "index"])
+    ->name("forecast.permalink");
 
 Route::get('/forecast', [\App\Http\Controllers\WeatherController::class, 'index']);
 
-Route::get("/forecast/{city}", [\App\Http\Controllers\ForecastController::class, "index"]);
+Route::get("/forecast/{city:name}", [\App\Http\Controllers\ForecastsController::class, "index"]);
+
+
+
+Route::view("/admin/weather", "admin.weather_index");
+Route::post("/admin/weather/update", [\App\Http\Controllers\AdminWeatherController::class, "update"])
+    ->name("weather.update");
+
+
+Route::view("/admin/forecasts", "admin.forecast_index");
+Route::post("/admin/forecasts/create", [\App\Http\Controllers\AdminForecastsController::class, "create"])
+    ->name("forecasts.create");
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
