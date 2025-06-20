@@ -27,15 +27,17 @@ Route::get('/forecast', [\App\Http\Controllers\WeatherController::class, 'index'
 Route::get("/forecast/{city:name}", [\App\Http\Controllers\ForecastsController::class, "index"]);
 
 
+Route::prefix("/admin")->middleware(\App\Http\Middleware\AdminCheckMiddleware::class)->group(function() {
 
-Route::view("/admin/weather", "admin.weather_index");
-Route::post("/admin/weather/update", [\App\Http\Controllers\AdminWeatherController::class, "update"])
-    ->name("weather.update");
+    Route::view("/weather", "admin.weather_index");
+    Route::post("/weather/update", [\App\Http\Controllers\AdminWeatherController::class, "update"])
+        ->name("weather.update");
 
+    Route::view("/forecasts", "admin.forecast_index");
+    Route::post("/forecasts/create", [\App\Http\Controllers\AdminForecastsController::class, "create"])
+        ->name("forecasts.create");
+});
 
-Route::view("/admin/forecasts", "admin.forecast_index");
-Route::post("/admin/forecasts/create", [\App\Http\Controllers\AdminForecastsController::class, "create"])
-    ->name("forecasts.create");
 
 
 
