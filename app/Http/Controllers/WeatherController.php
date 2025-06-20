@@ -8,7 +8,7 @@ class WeatherController extends Controller
 {
     public function index()
     {
-        $forecast = WeatherModel::all();
+        $forecast = WeatherModel::with('city')->get();
 
         return view('weather', compact('forecast'));
     }

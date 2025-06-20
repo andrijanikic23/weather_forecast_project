@@ -9,7 +9,10 @@ class ForecastsController extends Controller
 {
     public function index(CitiesModel $city)
     {
-        return view("forecasts", compact("city"));
+
+        $city = CitiesModel::with('forecasts')->findOrFail($city->id);
+
+        return view('forecasts', compact('city'));
     }
 
     public function search(Request $request)
