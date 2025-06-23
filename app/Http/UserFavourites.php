@@ -12,6 +12,11 @@ class UserFavourites
     {
         $user = Auth::user();
 
+        if($user == null)
+        {
+            return false;
+        }
+
         $userFavourites = $user->cityFavourites;
 
         return $userFavourites;

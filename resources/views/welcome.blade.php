@@ -8,11 +8,12 @@
 
 
 
-
-    @foreach($userFavourites as $favourite)
-        @php $icon = \App\Http\ForecastHelper::getIconByWeatherType($favourite->favouriteForecast->weather_type) @endphp
-        <p class="text-center mx-auto w-fit">{{ $favourite->favouriteCity->name }} <i class="fa-solid {{ $icon }}"></i> {{ $favourite->favouriteForecast->temperature }}</p>
-    @endforeach
+    @if($userFavourites !== false)
+        @foreach($userFavourites as $favourite)
+            @php $icon = \App\Http\ForecastHelper::getIconByWeatherType($favourite->favouriteForecast->weather_type) @endphp
+            <p class="text-center mx-auto w-fit">{{ $favourite->favouriteCity->name }} <i class="fa-solid {{ $icon }}"></i> {{ $favourite->favouriteForecast->temperature }}</p>
+        @endforeach
+    @endif
 
 
     <form style="height: 100vh" class="text-white text-left d-flex flex-column conatiner justify-content-center align-items-center" method="GET" action="{{ route('search') }}">
