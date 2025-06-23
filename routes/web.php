@@ -36,10 +36,15 @@ Route::prefix("/admin")->middleware(\App\Http\Middleware\AdminCheckMiddleware::c
     Route::view("/forecasts", "admin.forecast_index");
     Route::post("/forecasts/create", [\App\Http\Controllers\AdminForecastsController::class, "create"])
         ->name("forecasts.create");
+
 });
 
 
-
+//User cities
+Route::get("user-cities/favourite/{city}", [\App\Http\Controllers\UserCitiesController::class, "favourite"])
+    ->name("city.favourite");
+Route::get("user-cities/trash/{city}", [\App\Http\Controllers\UserCitiesController::class, "trash"])
+    ->name("city.trash");
 
 
 

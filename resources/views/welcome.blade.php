@@ -2,6 +2,19 @@
 
 @section("content")
 
+    @php
+        $userFavourites = \App\Http\UserFavourites::getUserFavourites();
+    @endphp
+
+
+
+
+    @foreach($userFavourites as $favourite)
+        @php $icon = \App\Http\ForecastHelper::getIconByWeatherType($favourite->favouriteForecast->weather_type) @endphp
+        <p class="text-center mx-auto w-fit">{{ $favourite->favouriteCity->name }} <i class="fa-solid {{ $icon }}"></i> {{ $favourite->favouriteForecast->temperature }}</p>
+    @endforeach
+
+
     <form style="height: 100vh" class="text-white text-left d-flex flex-column conatiner justify-content-center align-items-center" method="GET" action="{{ route('search') }}">
         {{ csrf_field() }}
         <h1 class="col-md-4 col-12"><i class="fa-solid fa-house"></i>Find your city</h1>
