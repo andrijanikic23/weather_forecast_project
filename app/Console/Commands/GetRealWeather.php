@@ -60,10 +60,13 @@ class GetRealWeather extends Command
         }
 
         $cityId = $dbCity->id;
-        $temperature = $jsonResponse["forecast"]["forecastday"][0]["day"]["avgtemp_c"];
-        $forecastDate = $jsonResponse["forecast"]["forecastday"][0]["date"];
-        $weatherType = $jsonResponse["forecast"]["forecastday"][0]["day"]["condition"]["text"];
-        $probability = $jsonResponse["forecast"]["forecastday"][0]["day"]["daily_chance_of_rain"];
+
+        $forecastDay = $jsonResponse["forecast"]["forecastday"][0];
+
+        $temperature = $forecastDay["day"]["avgtemp_c"];
+        $forecastDate = $forecastDay["date"];
+        $weatherType = $forecastDay["day"]["condition"]["text"];
+        $probability = $forecastDay["day"]["daily_chance_of_rain"];
 
         ForecastsModel::create([
            "city_id" => $cityId,
